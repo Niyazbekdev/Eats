@@ -6,6 +6,7 @@ use App\Http\Resources\MenuResource;
 use App\Services\Menu\IndexMenu;
 use App\Services\Menu\ShowMenu;
 use App\Services\Menu\StoreMenu;
+use App\Services\Menu\UpdateMenu;
 use App\Traits\JsonRespondController;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -45,6 +46,19 @@ class MenuController extends Controller
             $menu = app(StoreMenu::class)->execute($request->all());
             return $this->respondSuccess();
         }catch (ValidationException $exception){
+            return $exception->validator->errors()->all();
+        }
+    }
+    public function update(Request $request, string $id)
+    {
+        try {
+            $menu = app(UpdateMenu::class)->execute([
+                'id' => $id,
+                'name' => $request->name,
+                'image' => $request->image,
+            ]);
+            return $this->respondSuccess();
+        }catch(ValidationException $exception){
             return $exception->validator->errors()->all();
         }
     }
