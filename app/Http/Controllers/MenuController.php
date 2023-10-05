@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\MenuResource;
 use App\Services\Menu\IndexMenu;
 use App\Services\Menu\ShowMenu;
+use App\Services\Menu\StoreMenu;
 use App\Traits\JsonRespondController;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -36,6 +37,15 @@ class MenuController extends Controller
         }catch (Exception $exception){
             $this->setHTTPStatusCode($exception->getCode());
             return $this->respondWithError($exception->getMessage());
+        }
+    }
+    public function store(Request $request)
+    {
+        try{
+            $menu = app(StoreMenu::class)->execute($request->all());
+            return $this->respondSuccess();
+        }catch (ValidationException $exception){
+            return $exception->validator->errors()->all();
         }
     }
 }
