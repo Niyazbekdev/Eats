@@ -5,15 +5,12 @@ namespace App\Services\Menu;
 use App\Models\Menu;
 use App\Services\BaseServices;
 use Illuminate\Validation\ValidationException;
-
-class UpdateMenu extends BaseServices
+class DeleteMenu extends BaseServices
 {
     public function rules(): array
     {
         return [
-            'id' => 'exists:menus,id',
-            'name' => 'required',
-            'image' => 'required'
+            'id' => 'exists:menus,id'
         ];
     }
 
@@ -24,10 +21,7 @@ class UpdateMenu extends BaseServices
     {
         $this->validate($data, $this->rules());
         $menu = Menu::find($data['id']);
-        $menu->update([
-            'name' => $data['name'],
-            'image' => $data['image']
-        ]);
+        $menu->delete();
         return $menu;
     }
 }

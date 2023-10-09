@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\MenuResource;
+use App\Services\Menu\DeleteMenu;
 use App\Services\Menu\IndexMenu;
 use App\Services\Menu\ShowMenu;
 use App\Services\Menu\StoreMenu;
@@ -59,6 +60,17 @@ class MenuController extends Controller
             ]);
             return $this->respondSuccess();
         }catch(ValidationException $exception){
+            return $exception->validator->errors()->all();
+        }
+    }
+    public function destroy(Request $request, string $id)
+    {
+        try {
+            $menu = app(DeleteMenu::class)->execute([
+                'id' => $id,
+            ]);
+            return $this->respondSuccess();
+        }catch (ValidationException $exception){
             return $exception->validator->errors()->all();
         }
     }
