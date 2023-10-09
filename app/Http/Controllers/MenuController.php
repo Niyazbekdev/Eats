@@ -19,7 +19,7 @@ use Illuminate\Validation\ValidationException;
 class MenuController extends Controller
 {
     use JsonRespondController;
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
         $category = app(IndexMenu::class)->execute([]);
         return MenuResource::collection($category);

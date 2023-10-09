@@ -12,12 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('foods', function (Blueprint $table) {
+        Schema::create('food', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
             $table->mediumText('description');
             $table->integer('price');
             $table->foreignIdFor(Menu::class)->constrained('menus');
+            $table->string('image');
             $table->timestamps();
         });
     }

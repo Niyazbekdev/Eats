@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FoodController;
 use App\Http\Controllers\MenuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,4 +12,9 @@ Route::prefix('/menu')
         Route::post('/', [MenuController::class, 'store']);
         Route::put('/{id}', [MenuController::class, 'update']);
         Route::delete('/{id}', [MenuController::class, 'destroy']);
+    });
+
+Route::prefix('/food')
+    ->group(function (){
+        Route::get('/', [FoodController::class, 'index']);
     });
