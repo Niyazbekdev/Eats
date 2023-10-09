@@ -4,6 +4,7 @@ namespace App\Services\Menu;
 
 use App\Models\Menu;
 use App\Services\BaseServices;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 
 class UpdateMenu extends BaseServices
@@ -19,6 +20,7 @@ class UpdateMenu extends BaseServices
 
     /**
      * @throws ValidationException
+     * @throws ModelNotFoundException
      */
     public function execute(array $data)
     {
