@@ -17,4 +17,5 @@ Route::prefix('/menu')
 Route::prefix('/food')
     ->group(function (){
         Route::get('/', [FoodController::class, 'index']);
+        Route::post('/', [FoodController::class, 'store']);
     });
